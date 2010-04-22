@@ -133,23 +133,23 @@ describe PortableContacts::Client do
       it "should emails" do
         @entry.emails.should == [
           {
-            "value"=> "mhashimoto-04@plaxo.com",
-            "type"=> "work",
-            "primary"=> "true"
+            "value"=> "mhashimoto-work@plaxo.com",
+            "type"=> "work"
           },
           {
-            "value"=> "mhashimoto-04@plaxo.com",
+            "value"=> "mhashimoto-home@plaxo.com",
             "type"=> "home"
           },
           {
             "value"=> "mhashimoto@plaxo.com",
-            "type"=> "home"
+            "type"=> "home",
+            "primary"=> "true"
           }
         ]
       end
       
       it "should have email" do
-        @entry.email.should=="mhashimoto-04@plaxo.com"
+        @entry.email.should=="mhashimoto@plaxo.com"
       end
     end
 

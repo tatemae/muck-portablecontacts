@@ -181,7 +181,7 @@ module PortableContacts
     # primary email address
     def email
       @email||= begin
-        (emails.detect {|e| e['primary']=='true '} || emails.first)["value"] unless emails.empty?
+        (emails.detect {|e| e['primary']=='true'} || emails.first)["value"] unless emails.empty?
       end
     end
     

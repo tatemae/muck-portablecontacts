@@ -16,17 +16,17 @@
       ],
       "emails": [
         {
-          "value": "mhashimoto-04@plaxo.com",
-          "type": "work",
-          "primary": "true"
+          "value": "mhashimoto-work@plaxo.com",
+          "type": "work"
         },
         {
-          "value": "mhashimoto-04@plaxo.com",
+          "value": "mhashimoto-home@plaxo.com",
           "type": "home"
         },
         {
           "value": "mhashimoto@plaxo.com",
-          "type": "home"
+          "type": "home",
+          "primary": "true"
         }
       ],
       "urls": [
