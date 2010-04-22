@@ -199,7 +199,7 @@ module PortableContacts
     protected
     
     def method_missing(method,*args)
-      if respond_to?(method)
+      if @data.has_key?(method.to_s.camelize(:lower))
         return self[method]
       end 
       super
