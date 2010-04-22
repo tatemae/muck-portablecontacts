@@ -172,13 +172,17 @@ module PortableContacts
     ]
     
     ENTRY_FIELDS = SINGULAR_FIELDS + PLURAL_FIELDS
-    
-    ENTRY_FIELDS.each do |f|
+
+    def self.define_getter(field)
       class_eval <<-END, __FILE__, __LINE__
-        def #{f}
-          @data['#{f.to_s.camelize(:lower)}']
+        def #{field}
+          @data['#{field.to_s.camelize(:lower)}']
         end
       END
+    end
+    
+    ENTRY_FIELDS.each do |f|
+      define_getter(f)
     end
     
     def [](key)
@@ -196,7 +200,8 @@ module PortableContacts
     
     def method_missing(method, *args)
       if @data.has_key?(method.to_s.camelize(:lower))
-        return self[method]
+        self.class.define_getter(method)
+        return send(method)
       end 
       super
     end
