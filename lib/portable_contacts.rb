@@ -191,11 +191,7 @@ module PortableContacts
         (emails.detect {|e| e['primary'] == 'true'} || emails.first)["value"] unless emails.blank?
       end
     end
-    
-    def id
-      self["id"]
-    end
-    
+
     protected
     
     def method_missing(method, *args)
