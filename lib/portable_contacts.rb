@@ -20,15 +20,15 @@ module PortableContacts
     #
     # The second parameter is an OAuth::AccessToken instantiated for the provider.
     #
-    def initialize(base_url,access_token)
-      @base_url=base_url
-      @access_token=access_token
+    def initialize(base_url, access_token)
+      @base_url = base_url
+      @access_token = access_token
     end
     
     # Returns the AccessToken users contact details. Note this requests all fields from provider
     # Returns an PortableContacts::Person object
     def me(options={})
-      single(get("/@me/@self",options.reverse_merge(:fields=>:all)))
+      single(get("/@me/@self", options.reverse_merge(:fields => :all)))
     end
 
     # Returns the contacts of the user. It defaults to all fields and 100 entries
@@ -40,19 +40,19 @@ module PortableContacts
     #
     # Returns a PortableContacts::Collection which is a subclass of Array
     def all(options={})
-      collection(get("/@me/@all",options.reverse_merge(:fields=>:all,:count=>100)))
+      collection(get("/@me/@all", options.reverse_merge(:fields => :all, :count => 100)))
     end
     
     # Returns the full contact infor for a particular userid. TODO This is not tested well
     # Returns an PortableContacts::Person object
     def find(id, options={})
-      single(get("/@me/@all/#{id}",options.reverse_merge(:fields=>:all)))
+      single(get("/@me/@all/#{id}", options.reverse_merge(:fields => :all)))
     end
     
     private
 
-    def get(path,options={})
-      parse(@access_token.get( url_for(path)+options_for(options), {'Accept' => 'application/json'}))
+    def get(path, options={})
+      parse(@access_token.get(url_for(path) + options_for(options), {'Accept' => 'application/json'}))
     end
     
     def url_for(path)
@@ -62,7 +62,7 @@ module PortableContacts
     def options_for(options={})
       return "" if options.nil? || options.empty?
       options.symbolize_keys! if options.respond_to? :symbolize_keys!
-      "?#{(fields_options(options[:fields])+filter_options(options[:filter])+sort_options(options[:sort])+pagination_options(options)).sort.join("&")}"
+      "?#{(fields_options(options[:fields]) + filter_options(options[:filter]) + sort_options(options[:sort]) + pagination_options(options)).sort.join("&")}"
     end
     
     def single(data)
@@ -94,47 +94,47 @@ module PortableContacts
       end  
     end
     
-    def fields_options(options=nil)
+    def fields_options(options = nil)
       return [] if options.nil?
       if options.is_a? Symbol
-        return ["fields=#{(options==:all ? "@all": URI.escape(options.to_s))}"]
+        return ["fields=#{(options == :all ? "@all": URI.escape(options.to_s))}"]
       elsif options.respond_to?(:collect)
-        ["fields=#{options.collect{|f|f.to_s}.join(',')}"]
+        ["fields=#{options.collect{|f| f.to_s}.join(',')}"]
       else
         []
       end
     end
     
-    def sort_options(options=nil)
+    def sort_options(options = nil)
       return [] if options.nil?
       if options.is_a? Symbol
         return ["sortBy=#{URI.escape(options.to_s)}"]
       end
-      if options.is_a?(Hash) and options[:by]||options['by']
-        return to_query_list(options,"sort")
+      if options.is_a?(Hash) and options[:by] || options['by']
+        return to_query_list(options, "sort")
       end
       return []
     end
 
-    def pagination_options(options=nil)
+    def pagination_options(options = nil)
       return [] if options.nil? || options.empty?
-      params=[]
+      params = []
       if options[:count]
-        params<<"count=#{options[:count]}"
+        params << "count=#{options[:count]}"
       end
       if options[:start_index]
-        params<<"startIndex=#{options[:start_index]}"
+        params << "startIndex=#{options[:start_index]}"
       end
       params
     end
     
-    def filter_options(options={})
+    def filter_options(options = {})
       return [] if options.nil? || options.empty?
       options[:op] ||= "equals"
-      to_query_list(options,"filter")
+      to_query_list(options, "filter")
     end
     
-    def to_query_list(params,pre_fix='')
+    def to_query_list(params, pre_fix = '')
       params.collect{ |k,v| "#{pre_fix}#{k.to_s.capitalize}=#{URI.escape(v.to_s)}"}
     end
   end
@@ -147,7 +147,7 @@ module PortableContacts
     #
 
     def initialize(data={})
-      @data=data
+      @data = data
     end
     
     SINGULAR_FIELDS = [
@@ -187,8 +187,8 @@ module PortableContacts
     
     # primary email address
     def email
-      @email||= begin
-        (emails.detect {|e| e['primary']=='true'} || emails.first)["value"] unless emails.empty?
+      @email ||= begin
+        (emails.detect {|e| e['primary'] == 'true'} || emails.first)["value"] unless emails.empty?
       end
     end
     
@@ -198,7 +198,7 @@ module PortableContacts
     
     protected
     
-    def method_missing(method,*args)
+    def method_missing(method, *args)
       if @data.has_key?(method.to_s.camelize(:lower))
         return self[method]
       end 
@@ -211,9 +211,9 @@ module PortableContacts
     
     def initialize(data)
       super data["entry"].collect{|e| PortableContacts::Person.new(e) }
-      @total_entries=data["totalResults"].to_i
-      @per_page=data["itemsPerPage"].to_i
-      @start_index=data["startIndex"].to_i
+      @total_entries = data["totalResults"].to_i
+      @per_page = data["itemsPerPage"].to_i
+      @start_index = data["startIndex"].to_i
     end
 
   end
