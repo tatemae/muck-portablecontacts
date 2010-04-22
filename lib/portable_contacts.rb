@@ -206,7 +206,7 @@ module PortableContacts
     end
     
     def respond_to?(method)
-      @data.has_key?(method.to_s.camelize(:lower)) || super
+      super || @data.has_key?(method.to_s.camelize(:lower))
     end
   end
   
