@@ -204,10 +204,6 @@ module PortableContacts
       end 
       super
     end
-    
-    def respond_to?(method)
-      super || @data.has_key?(method.to_s.camelize(:lower))
-    end
   end
   
   class Collection < Array
