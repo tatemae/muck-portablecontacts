@@ -173,6 +173,13 @@ module PortableContacts
     
     ENTRY_FIELDS = SINGULAR_FIELDS + PLURAL_FIELDS
     
+    ENTRY_FIELDS.each do |f|
+      class_eval <<-END, __FILE__, __LINE__
+        def #{f}
+          @data['#{f.to_s.camelize(:lower)}']
+        end
+      END
+    end
     
     def [](key)
       @data[key.to_s.camelize(:lower)]
@@ -199,7 +206,7 @@ module PortableContacts
     end
     
     def respond_to?(method)
-      ENTRY_FIELDS.include?(method) || @data.has_key?(method.to_s.camelize(:lower)) || super
+      @data.has_key?(method.to_s.camelize(:lower)) || super
     end
   end
   
