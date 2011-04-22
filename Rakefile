@@ -4,21 +4,20 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "portablecontacts"
+    gem.name = "muck-portablecontacts"
     gem.summary = %Q{Portable Contacts client for Ruby}
     gem.description = %Q{A client library for the portable contacts standard}
     gem.email = "pelleb@gmail.com"
     gem.homepage = "http://github.com/pelle/portablecontacts"
     gem.authors = ["Pelle Braendgaard"]
     gem.rubyforge_project = "portablecontact"
+    gem.add_dependency "activesupport"
     gem.add_dependency('oauth', '>= 0.3.6')
     gem.add_dependency('json')
     gem.add_development_dependency "rspec"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
-  Jeweler::RubyforgeTasks.new do |rubyforge|
-    rubyforge.doc_task = "rdoc"
-  end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end

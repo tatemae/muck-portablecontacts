@@ -1,5 +1,10 @@
 = Portable Contacts
 
+This is a slightly modified fork of the original project primarily using changes from: https://github.com/kickstarter/portablecontacts. 
+To install this gem use:
+
+  gem install muck-portablecontacts
+
 This is a ruby client implementation of Portable Contacts a standard for exchanging profile and address book data.
 
 The current draft of the standard is http://portablecontacts.net/draft-spec.html
