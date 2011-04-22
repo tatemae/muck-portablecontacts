@@ -4,6 +4,11 @@ This is a slightly modified fork of the original project primarily using changes
 To install this gem use:
 
   gem install muck-portablecontacts
+  
+When using the gem you will still use:
+
+  require 'portable_contacts'
+
 
 This is a ruby client implementation of Portable Contacts a standard for exchanging profile and address book data.
 
