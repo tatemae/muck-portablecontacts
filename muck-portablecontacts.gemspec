@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "lib/portable_contacts.rb",
     "lib/portablecontacts.rb",
-    "portablecontacts.gemspec",
+    "muck-portablecontacts.gemspec",
     "spec/fixtures/multiple.json",
     "spec/fixtures/single.json",
     "spec/portable_contacts_spec.rb",
